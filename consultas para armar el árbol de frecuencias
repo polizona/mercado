@@ -1,0 +1,9 @@
+Carga el archivo empresas2019.xml en una tabla de access y escribe las siguientes consultas.
+
+SELECT Count(*) AS frecuencia
+FROM empresas;
+
+
+SELECT empresas.materia, Count(*) AS frecuencia
+FROM empresas
+GROUP BY empresas.materia;
