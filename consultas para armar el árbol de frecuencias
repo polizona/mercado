@@ -1,4 +1,4 @@
-Carga el archivo empresas2019.xml en una tabla de access y escribe las siguientes consultas.
+Carga el archivo empresas2019.xml en una tabla de base de datos y escribe las siguientes consultas (estas consultas corren en access).
 
 SELECT Count(*) AS frecuencia
 FROM empresas;
@@ -7,3 +7,16 @@ FROM empresas;
 SELECT empresas.materia, Count(*) AS frecuencia
 FROM empresas
 GROUP BY empresas.materia;
+
+SELECT Count(*) AS frecuencia, empresas.materia, empresas.industria
+FROM empresas
+GROUP BY empresas.materia, empresas.industria;
+
+Calcula la probabilidad de los siguientes eventos:
+un estudiante está inscrito en inteligencia.
+un estudiante está inscrito en 1conocimiento o 2conocimiento.
+un estudiante esté en la industria A
+un estudiante inteligencia esté en la industria A
+un estudiante esté en la industria A dado que está en inteligencia.
+un estudiante esté en la industria A dado que está en 1conocimiento o 2conocimiento.
+
