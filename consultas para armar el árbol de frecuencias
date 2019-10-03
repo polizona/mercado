@@ -20,3 +20,6 @@ un estudiante inteligencia esté en la industria A
 un estudiante esté en la industria A dado que está en inteligencia.
 un estudiante esté en la industria A dado que está en 1conocimiento o 2conocimiento.
 
+Codifica en una red bayesiana de json el árbol de frecuencias con las dimensiones materia e industria.
+(usa el codificador https://rextester.com/YUWA67350 )
+
