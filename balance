@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Convert a string into a function.</h2>
+
+<p id="demo"></p>
+
+<script>
+var text = '{"balance":{"activo":{"bancos":1254,"insumosA":1254,"insumosB":1254,"enproceso":1254, "mercancias":1254, "clientes":1254, "infraestructura":14},"pasivo":{"hipotecas":1254,"proveedores":222222},"capital":{"social":555,"utilidades":"function() {return obj.balance.activo.bancos+obj.balance.activo.insumosA+obj.balance.activo.insumosB+obj.balance.activo.enproceso+obj.balance.activo.clientes+obj.balance.activo.mercancias+obj.balance.activo.infraestructura-obj.balance.pasivo.hipotecas-obj.balance.pasivo.proveedores-obj.balance.capital.social;}"}}}';
+var obj = JSON.parse(text);
+obj.balance.capital.utilidades = eval("(" + obj.balance.capital.utilidades + ")");
+document.getElementById("demo").innerHTML = obj.balance.activo.bancos
++ ", " + obj.balance.capital.utilidades(); 
+</script>
+
+</body>
+</html>
