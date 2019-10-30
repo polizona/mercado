@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html>
 <body>
-
-<h2>Convert a string into a function.</h2>
-
-<p id="demo"></p>
-
+<h4>inserta resultado del script</h4>
+<p id="inserta_resultado_del_script"></p>
 <script>
-var text = '{"balance":{"activo":{"bancos":1254,"insumosA":1254,"insumosB":1254,"enproceso":1254, "mercancias":1254, "clientes":1254, "infraestructura":14},"pasivo":{"hipotecas":1254,"proveedores":222222},"capital":{"social":555,"utilidades":"function() {return obj.balance.activo.bancos+obj.balance.activo.insumosA+obj.balance.activo.insumosB+obj.balance.activo.enproceso+obj.balance.activo.clientes+obj.balance.activo.mercancias+obj.balance.activo.infraestructura-obj.balance.pasivo.hipotecas-obj.balance.pasivo.proveedores-obj.balance.capital.social;}"}}}';
+var text = '{"balance":{"activo":{"infraestructura":100,"bancos":200,"insumosA":5000,"insumosB":4500,"enproceso":2544,"mercancias":125,"clientes":7854},"pasivo":{"hipotecas":1000,"proveedores":2000},"capital":{"social":11122,"utilidades":"function() {utilidades=obj.balance.activo.infraestructura+obj.balance.activo.bancos+obj.balance.activo.insumosA+obj.balance.activo.insumosB+obj.balance.activo.enproceso+obj.balance.activo.mercancias+obj.balance.activo.clientes-obj.balance.capital.social-obj.balance.pasivo.hipotecas-obj.balance.pasivo.proveedores; return utilidades;}"}}}';
 var obj = JSON.parse(text);
 obj.balance.capital.utilidades = eval("(" + obj.balance.capital.utilidades + ")");
-document.getElementById("demo").innerHTML = obj.balance.activo.bancos
-+ ", " + obj.balance.capital.utilidades(); 
+document.getElementById("inserta_resultado_del_script").innerHTML ="infraestructura: "+obj.balance.activo.infraestructura+" proveedores: " + obj.balance.pasivo.proveedores+" social: "+obj.balance.capital.social  + " utilidades: "+ obj.balance.capital.utilidades(); 
 </script>
-
+inserta resultado del script
 </body>
 </html>
