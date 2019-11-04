@@ -1,0 +1,90 @@
+Hemos diseñado una estructura de datos para que el usuario pueda diseñar sus tablas con la siguiente nomenclatura:
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ontos>
+<usuarios>
+<idusuario primaria="si" tipo="entero"/>
+<nbusuario tipo="texto"/>
+</usuarios>
+
+<ontologias>
+<idusuario primaria="si" tipo="entero"/>
+<idontologia primaria="si" tipo="entero"/>
+<nbontologia tipo="texto"/>
+</ontologias>
+Copia y pega la definición de las tablas en el intérprete de XSLT, a continuación copia y pega el código XSLT
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="*">
+<html><body>
+  <xsl:for-each select="child::*"> <br/>
+     CREATE TABLE <xsl:value-of select="name(.)"/>
+       ( <xsl:for-each select="child::*">
+         <xsl:value-of select="name(.)"/>
+          
+        <xsl:choose>
+             <xsl:when test="@tipo='entero'"> int</xsl:when>
+              <xsl:when test="@tipo='texto'"> text</xsl:when>
+              <xsl:when test="@tipo='logico'"> boolean</xsl:when>
+              <xsl:when test="@tipo='decimal'"> double</xsl:when>
+              <xsl:when test="@tipo='fecha'"> date</xsl:when>
+
+        <xsl:otherwise>
+            ninguno
+       </xsl:otherwise>       
+                
+</xsl:choose>,  
+</xsl:for-each>
+   PRIMARY KEY (
+<xsl:for-each select="*">
+<xsl:if test="@primaria='si'">
+<xsl:value-of select="name(.)"/>
+</xsl:if>
+      <xsl:if test="following-sibling::*/@primaria='si'">, </xsl:if>
+</xsl:for-each>
+));
+</xsl:for-each> <br/>
+<xsl:for-each select="child::*">
+drop table <xsl:value-of select="name(.)"/> ;
+</xsl:for-each>
+</body> </html>
+</xsl:template>
+</xsl:stylesheet>
+Entra al servidor de base de datos de la polizona y prueba tus querys
+
+
+Código para insertar instancias
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+    <xsl:for-each select="*">
+ Create database <xsl:value-of select="name()"/>;<br/>
+    <xsl:for-each select="*">
+  <xsl:if test="name(.)!='instancias'">
+ Create table <xsl:value-of select="name()"/> (
+    <xsl:for-each select="*">
+  <xsl:value-of select="name()"/>
+<xsl:choose>
+  <xsl:when test="(.)='entero'"> int </xsl:when>
+  <xsl:when test="(.)='texto'"> text </xsl:when>
+  <xsl:when test="(.)='decimal'"> double </xsl:when>
+  <xsl:when test="(.)='logico'"> boolean </xsl:when>
+  <xsl:when test="(.)='fecha'"> datetime </xsl:when>
+ <xsl:when test="(.)='fechat'"> datetime </xsl:when>
+  <xsl:otherwise>tipo invalido  </xsl:otherwise>
+</xsl:choose>
+  <xsl:if test="following-sibling::*">, </xsl:if>
+    </xsl:for-each>,PRIMARY KEY (  <xsl:value-of select="name(*)"/>) );<br/>
+ </xsl:if>
+    </xsl:for-each>
+ <xsl:for-each select="instancias/*">
+Insert into <xsl:value-of select="name()"/> values (
+    <xsl:for-each select="*">
+'<xsl:value-of select="."/>'
+  <xsl:if test="following-sibling::*">, </xsl:if>
+</xsl:for-each>
+);<br/>
+</xsl:for-each>
+    </xsl:for-each>
+</xsl:template>
+</xsl:stylesheet>
+
